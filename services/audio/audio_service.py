@@ -1,25 +1,6 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import Dict, Any
-
-app = FastAPI()
-
-class AudioRequest(BaseModel):
-    prompt: str
-    task_id: str
-    subtask_id: str
-    audio_type: str
-    voice_id: str
-
+// Add from elevenlabs import generate, save
 @app.post("/generate")
 async def generate_audio(request: AudioRequest):
-    # Simulate audio generation
-    return {
-        "task_id": request.task_id,
-        "subtask_id": request.subtask_id,
-        "result": "Audio generated successfully"
-    }
-
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy"}
+    audio = generate(text=request.prompt, voice=request.voice_id, api_key=os.getenv('ELEVENLABS_API_KEY'))
+    save(audio, f"generated_{request.subtask_id}.mp3")
+    return {"result": f"Audio saved as generated_{request.subtask_id}.mp3"}
