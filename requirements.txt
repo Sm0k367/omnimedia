@@ -1,5 +1,14 @@
+# Existing
 fastapi
 httpx
 uvicorn
 pydantic
 docker
+
+# New for AI integrations
+openai
+stability-sdk
+replicate
+elevenlabs
+celery  # For task queuing in orchestrator
+redis  # For Celery backend
