@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omnimedia-ai
+  namespace: omnimedia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: omnimedia-ai
+  template:
+    metadata:
+      labels:
+        app: omnimedia-ai
+    spec:
+      containers:
+      - name: orchestrator
+        image: your-org/omnimedia-ai-orchestrator:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: omnimedia-secrets
+              key: OPENAI_API_KEY
+        - name: REPLICATE_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: omnimedia-secrets
+              key: REPLICATE_API_TOKEN
+        - name: STABILITY_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: omnimedia-secrets
+              key: STABILITY_API_KEY
+        - name: ELEVENLABS_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: omnimedia-secrets
+              key: ELEVENLABS_API_KEY
+        - name: ANTHROPIC_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: omnimedia-secrets
+              key: ANTHROPIC_API_KEY
+        - name: GOOGLE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: omnimedia-secrets
+              key: GOOGLE_API_KEY
+        - name: RUNWAY_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: omnimedia-secrets
+              key: RUNWAY_API_KEY
+        - name: SUNO_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: omnimedia-secrets
+              key: SUNO_API_KEY
+      - name: images
+        image: your-org/omnimedia-ai-images:latest
+        ports:
+        - containerPort: 8001
+        env:
+        - name: IMAGE_DEFAULT_RESOLUTION
+          value: "1024x1024"
+        - name: IMAGE_MAX_RESOLUTION
+          value: "2048x2048"
+        - name: IMAGE_FALLBACK_ENABLED
+          value: "true"
+      - name: videos
+        image: your-org/omnimedia-ai-videos:latest
+        ports:
+        - containerPort: 8002
+        env:
+        - name: VIDEO_DEFAULT_DURATION
+          value: "5"
+        - name: VIDEO_MAX_DURATION
+          value: "30"
+        - name: VIDEO_DEFAULT_FPS
+          value: "24"
+      - name: audio
+        image: your-org/omnimedia-ai-audio:latest
+        ports:
+        - containerPort: 8003
+        env:
+        - name: AUDIO_DEFAULT_DURATION
+          value: "30"
+        - name: AUDIO_MAX_DURATION
+          value: "300"
+        - name: AUDIO_SAMPLE_RATE
+          value: "44100"
+      - name: text
+        image: your-org/omnimedia-ai-text:latest
+        ports:
+        - containerPort: 8004
+        env:
+        - name: TEXT_MAX_TOKENS
+          value: "4000"
+        - name: TEXT_DEFAULT_TEMPERATURE
+          value: "0.7"

@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  orchestrator:
+    build: .
+    command: uvicorn services.orchestrator.orchestrator:app --host 0.0.0.0 --port 8000
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - REPLICATE_API_TOKEN=${REPLICATE_API_TOKEN}
+      - STABILITY_API_KEY=${STABILITY_API_KEY}
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - RUNWAY_API_KEY=${RUNWAY_API_KEY}
+      - SUNO_API_KEY=${SUNO_API_KEY}
+    ports:
+      - "8000:8000"
+
+  images:
+    build: .
+    command: uvicorn services.images.images_service:app --host 0.0.0.0 --port 8001
+    environment:
+      - IMAGE_DEFAULT_RESOLUTION=${IMAGE_DEFAULT_RESOLUTION}
+      - IMAGE_MAX_RESOLUTION=${IMAGE_MAX_RESOLUTION}
+      - IMAGE_FALLBACK_ENABLED=${IMAGE_FALLBACK_ENABLED}
+    ports:
+      - "8001:8001"
+
+  videos:
+    build: .
+    command: uvicorn services.videos.videos_service:app --host 0.0.0.0 --port 8002
+    environment:
+      - VIDEO_DEFAULT_DURATION=${VIDEO_DEFAULT_DURATION}
+      - VIDEO_MAX_DURATION=${VIDEO_MAX_DURATION}
+      - VIDEO_DEFAULT_FPS=${VIDEO_DEFAULT_FPS}
+    ports:
+      - "8002:8002"
+
+  audio:
+    build: .
+    command: uvicorn services.audio.audio_service:app --host 0.0.0.0 --port 8003
+    environment:
+      - AUDIO_DEFAULT_DURATION=${AUDIO_DEFAULT_DURATION}
+      - AUDIO_MAX_DURATION=${AUDIO_MAX_DURATION}
+      - AUDIO_SAMPLE_RATE=${AUDIO_SAMPLE_RATE}
+    ports:
+      - "8003:8003"
+
+  text:
+    build: .
+    command: uvicorn services.text.text_service:app --host 0.0.0.0 --port 8004
+    environment:
+      - TEXT_MAX_TOKENS=${TEXT_MAX_TOKENS}
+      - TEXT_DEFAULT_TEMPERATURE=${TEXT_DEFAULT_TEMPERATURE}
+    ports:
+      - "8004:8004"

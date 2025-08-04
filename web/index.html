@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniMedia AI - AI Media Generation Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .service-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .service-port {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #495057;
+        }
+
+        .api-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .api-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .links-section {
+            text-align: center;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .links-section a {
+            display: inline-block;
+            margin: 10px 15px;
+            padding: 12px 25px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background 0.3s ease;
+        }
+
+        .links-section a:hover {
+            background: #764ba2;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .service-card, .api-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 OmniMedia AI</h1>
+            <p>Advanced AI Media Generation Platform</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🎭</div>
+                <h3>Orchestrator</h3>
+                <p>Main coordination service that manages all media generation requests and orchestrates specialized AI agents.</p>
+                <div class="service-port">Port: 8000</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🖼️</div>
+                <h3>Image Generation</h3>
+                <p>Create stunning images using Stability AI, DALL-E, and other cutting-edge image generation models.</p>
+                <div class="service-port">Port: 8001</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎥</div>
+                <h3>Video Generation</h3>
+                <p>Generate high-quality videos with Runway ML and other advanced video synthesis technologies.</p>
+                <div class="service-port">Port: 8002</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎵</div>
+                <h3>Audio Generation</h3>
+                <p>Produce professional audio content including voice synthesis, music, and sound effects.</p>
+                <div class="service-port">Port: 8003</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📝</div>
+                <h3>Text Generation</h3>
+                <p>Generate compelling text content using GPT, Claude, and other state-of-the-art language models.</p>
+                <div class="service-port">Port: 8004</div>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <h2>🚀 Quick Start</h2>
+            <p>Get started with OmniMedia AI in just a few steps:</p>
+            
+            <h3>1. Generate Media Content</h3>
+            <div class="code-block">
+                <pre>curl -X POST http://localhost:8000/generate-media \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "A beautiful sunset over mountains",
+    "output_format": "mixed/package",
+    "options": {
+      "style": ["cinematic"],
+      "quality": ["hd"]
+    }
+  }'</pre>
+            </div>
+
+            <h3>2. Check Task Status</h3>
+            <div class="code-block">
+                <pre>curl http://localhost:8000/task-status/{task_id}</pre>
+            </div>
+
+            <h3>3. Health Check</h3>
+            <div class="code-block">
+                <pre>curl http://localhost:8000/health</pre>
+            </div>
+        </div>
+
+        <div class="links-section">
+            <h2>📚 Resources</h2>
+            <a href="https://github.com/your-username/omnimedia-ai" target="_blank">GitHub Repository</a>
+            <a href="/docs" target="_blank">API Documentation</a>
+            <a href="docs/architecture.md" target="_blank">Architecture Guide</a>
+            <a href="docs/deployment.md" target="_blank">Deployment Guide</a>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 OmniMedia AI. Built with ❤️ for the AI community.</p>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const serviceCards = document.querySelectorAll('.service-card');
+            
+            serviceCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const port = this.querySelector('.service-port').textContent.split(': ')[1];
+                    const healthUrl = `http://localhost:${port}/health`;
+                    
+                    // You could add health check functionality here
+                    console.log(`Checking health for port ${port}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
