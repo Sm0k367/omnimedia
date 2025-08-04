@@ -1,25 +1,6 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import Dict, Any
-
-app = FastAPI()
-
-class TextRequest(BaseModel):
-    prompt: str
-    task_id: str
-    subtask_id: str
-    max_tokens: int
-    temperature: float
-
+// Add from openai import OpenAI
 @app.post("/generate")
 async def generate_text(request: TextRequest):
-    # Simulate text generation
-    return {
-        "task_id": request.task_id,
-        "subtask_id": request.subtask_id,
-        "result": "Text generated successfully"
-    }
-
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy"}
+    client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+    response = client.chat.completions.create(model="gpt-4", messages=[{"role": "user", "content": request.prompt}], max_tokens=request.max_tokens, temperature=request.temperature)
+    return {"result": response.choices[0].message.content}
