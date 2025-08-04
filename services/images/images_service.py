@@ -1,26 +1,27 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import Dict, Any
+// ... existing imports ...
+from stability_sdk import client
+import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
+import os
 
 app = FastAPI()
 
-class ImageRequest(BaseModel):
-    prompt: str
-    task_id: str
-    subtask_id: str
-    style: str
-    resolution: str
-    quality: str
+// ... existing model ...
 
 @app.post("/generate")
 async def generate_image(request: ImageRequest):
-    # Simulate image generation
-    return {
-        "task_id": request.task_id,
-        "subtask_id": request.subtask_id,
-        "result": "Image generated successfully"
-    }
+    stability_api = client.StabilityInference(key=os.getenv('STABILITY_API_KEY'))
+    responses = stability_api.generate(
+        prompt=request.prompt,
+        width=int(request.resolution.split('x')[0]),
+        height=int(request.resolution.split('x')[1]),
+        # Add style, quality params
+    )
+    for resp in responses:
+        for artifact in resp.artifacts:
+            if artifact.type == generation.ARTIFACT_IMAGE:
+                with open(f"generated_{request.subtask_id}.png", "wb") as f:
+                    f.write(artifact.binary)
+                return {"task_id": request.task_id, "subtask_id": request.subtask_id, "result": f"Image saved as generated_{request.subtask_id}.png"}
+    raise HTTPException(status_code=500, detail="Image generation failed")
 
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy"}
+// ... existing health ...
